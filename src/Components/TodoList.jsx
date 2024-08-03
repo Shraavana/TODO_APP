@@ -1,19 +1,21 @@
 import React, { useState } from 'react';
 import TodoForm from './TodoForm';
 import Todo from './Todo';
+import { toast } from 'react-toastify';
+
 
 function TodoList() {
-  const [todos, setTodos] = useState([]);
+  const [
+     todos, setTodos] = useState([]);
 
   const addTodo = todo => {
-    if (!todo.text || /^\s*$/.test(todo.text)) {
+    if (todos.some(existingTodo => existingTodo.text === todo.text)) {
+      toast.warning('The todo already exists');
       return;
     }
-
     const newTodos = [todo, ...todos];
-
     setTodos(newTodos);
-    console.log(...todos);
+
   };
 
   const updateTodo = (todoId, newValue) => {
